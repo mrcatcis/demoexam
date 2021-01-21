@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QApplication
 from PyQt5.QtGui import QPainter, QColor, QFont, QPen, QBrush, QPolygon
 from PyQt5.QtCore import Qt, QPoint
-import math
+from math import sin, cos, pi
 
 
 class Window(QWidget):
@@ -12,40 +12,41 @@ class Window(QWidget):
         self.show()
         self.polygons = []
 
-    def delete_triangles(self):
+    def deletePolygons(self):
         self.polygons.clear()
 
     def keyPressEvent(self, event):
-        if event().key() == Qt.Key_Delete:
-            self.delete_triangles()
+        if event.key() == Qt.Key_Delete:
+            self.deletePolygons()
             self.update()
 
     def create_polygon(self, n: int, pos: QPoint, size: int):
         polygon = []
-        delt = 2 * math.pi / n
+        delt = 2 * pi / n
         for i in range(n):
             i *= delt
-            polygon.append(QPoint(pos.x() + int(math.sin(i) * size),
-                                  pos.y() + int(math.cos(i) * size)))
+            polygon.append(QPoint(pos.x() + int(sin(i) * size),
+                                  pos.y() + int(cos(i) * size)))
 
         return QPolygon(polygon)
 
-    def draw_polygons(self):
+    def drawPolygons(self):
         for i in self.polygons:
             self.painter.drawPolygon(i)
 
     def mousePressEvent(self, event):
         x, y = event.pos().x(), event.pos().y()
-        self.polygons.append(self.create_polygon(3, QPoint(x, y), 30))
+        self.polygons.append(self.create_polygon(20, QPoint(x, y), 100))
         self.update()
 
     def paintEvent(self, event):
         self.painter = QPainter(self)
         self.painter.begin(self)
-        self.draw_polygons()
+        self.drawPolygons()
         self.painter.end()
 
 
-app = QApplication([])
-root = Window()
-app.exec_()
+if __name__ == '__main__':
+    app = QApplication([])
+    root = Window()
+    app.exec_()
