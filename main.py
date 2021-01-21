@@ -27,6 +27,7 @@ class Window(QWidget):
             i *= delt
             polygon.append(QPoint(pos.x() + int(math.sin(i) * size),
                                   pos.y() + int(math.cos(i) * size)))
+
         return QPolygon(polygon)
 
     def draw_polygons(self):
@@ -35,7 +36,7 @@ class Window(QWidget):
 
     def mousePressEvent(self, event):
         x, y = event.pos().x(), event.pos().y()
-        self.polygons.append(self.create_polygon(5, QPoint(x, y), 30))
+        self.polygons.append(self.create_polygon(3, QPoint(x, y), 30))
         self.update()
 
     def paintEvent(self, event):
