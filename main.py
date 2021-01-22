@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QApplication
 from PyQt5.QtGui import QPainter, QColor, QFont, QPen, QBrush, QPolygon
 from PyQt5.QtCore import Qt, QPoint
-import math
+from math import pi, sin, cos
 
 
 class Window(QWidget):
@@ -22,11 +22,11 @@ class Window(QWidget):
 
     def createPolygon(self, n: int, pos: QPoint, size: int):
         polygon = []
-        delt = 2 * math.pi / n
+        delt = 2 * pi / n
         for i in range(n):
             i *= delt
-            polygon.append(QPoint(pos.x() + int(math.sin(i) * size),
-                                  pos.y() + int(math.cos(i) * size)))
+            polygon.append(QPoint(pos.x() + int(sin(i) * size),
+                                  pos.y() + int(cos(i) * size)))
         return QPolygon(polygon)
 
     def drawPolygons(self):
