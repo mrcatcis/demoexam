@@ -12,15 +12,15 @@ class Window(QWidget):
         self.show()
         self.polygons = []
 
-    def delete_triangles(self):
+    def deleteTriangles(self):
         self.polygons.clear()
 
     def keyPressEvent(self, event):
         if event().key() == Qt.Key_Delete:
-            self.delete_triangles()
+            self.deleteTriangles()
             self.update()
 
-    def create_polygon(self, n: int, pos: QPoint, size: int):
+    def createPolygon(self, n: int, pos: QPoint, size: int):
         polygon = []
         delt = 2 * math.pi / n
         for i in range(n):
@@ -29,22 +29,23 @@ class Window(QWidget):
                                   pos.y() + int(math.cos(i) * size)))
         return QPolygon(polygon)
 
-    def draw_polygons(self):
+    def drawPolygons(self):
         for i in self.polygons:
             self.painter.drawPolygon(i)
 
     def mousePressEvent(self, event):
         x, y = event.pos().x(), event.pos().y()
-        self.polygons.append(self.create_polygon(5, QPoint(x, y), 30))
+        self.polygons.append(self.createPolygon(3, QPoint(x, y), 50))
         self.update()
 
     def paintEvent(self, event):
         self.painter = QPainter(self)
         self.painter.begin(self)
-        self.draw_polygons()
+        self.drawPolygons()
         self.painter.end()
 
 
-app = QApplication([])
-root = Window()
-app.exec_()
+if __name__ == '__main__':
+    app = QApplication([])
+    root = Window()
+    app.exec_()
