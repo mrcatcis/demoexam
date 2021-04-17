@@ -6,7 +6,6 @@ from math import pi, sin, cos
 class Window(QWidget):
     def __init__(self):
         super().__init__()
-        self.setGeometry(400, 200, 800, 600)
         self.setWindowTitle('5.1')
         self.show()
         self.polygons = []
@@ -16,7 +15,7 @@ class Window(QWidget):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Delete:
-            self.deleteTriangles()
+            self.deletePolygons()
             self.update()
 
     def createPolygon(self, n: int, pos: QPoint, size: int):
@@ -42,7 +41,6 @@ class Window(QWidget):
         self.painter.begin(self)
         self.drawPolygons()
         self.painter.end()
-
 
 if __name__ == '__main__':
     app = QApplication([])

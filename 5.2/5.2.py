@@ -27,10 +27,8 @@ class Window(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.setGeometry(400, 200, 800, 600)
         self.setWindowTitle('5.2')
         self.show()
-
         self.polygons = []
 
     def deletePolygons(self):
